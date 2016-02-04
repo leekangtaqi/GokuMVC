@@ -1,3 +1,3 @@
 # LightbringerMVC
-## A Nodejs WebFramework
+## A Nodejs WebApp Framework
 ### Base on Typescript
