@@ -1,0 +1,192 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/iojs',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'require-all',
+1 verbose cli   '--save' ]
+2 info using npm@2.14.2
+3 info using node@v4.0.0
+4 verbose install initial load of /Users/bjhl/dev/codebase/rodos/package.json
+5 warn package.json rodos@0.0.1 No description
+6 warn package.json rodos@0.0.1 No repository field.
+7 warn package.json rodos@0.0.1 No license field.
+8 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/angular2/package.json
+9 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/bluebird/package.json
+10 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/body-parser/package.json
+11 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/chai/package.json
+12 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/co/package.json
+13 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/ejs/package.json
+14 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/errorhandler/package.json
+15 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/es6-promise/package.json
+16 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/es6-shim/package.json
+17 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/express/package.json
+18 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/gulp/package.json
+19 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/gulp-typescript/package.json
+20 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/gulp-watch/package.json
+21 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/koa/package.json
+22 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/log4js/package.json
+23 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/method-override/package.json
+24 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/mocha/package.json
+25 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/mongoose/package.json
+26 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/redis/package.json
+27 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/reflect-metadata/package.json
+28 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/require-all/package.json
+29 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/rxjs/package.json
+30 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/serve-static/package.json
+31 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/swig/package.json
+32 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/systemjs/package.json
+33 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/typescript/package.json
+34 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/underscore/package.json
+35 verbose installManyTop reading scoped package data from /Users/bjhl/dev/codebase/rodos/node_modules/zone.js/package.json
+36 info package.json mocha@2.1.0 No license field.
+37 info package.json redis@0.12.1 No license field.
+38 verbose readDependencies loading dependencies from /Users/bjhl/dev/codebase/rodos/package.json
+39 verbose install require-all is installed as 2.0.0
+40 silly cache add args [ 'require-all', null ]
+41 verbose cache add spec require-all
+42 silly cache add parsed spec Result {
+42 silly cache add   raw: 'require-all',
+42 silly cache add   scope: null,
+42 silly cache add   name: 'require-all',
+42 silly cache add   rawSpec: '',
+42 silly cache add   spec: '*',
+42 silly cache add   type: 'range' }
+43 silly addNamed require-all@*
+44 verbose addNamed "*" is a valid semver range for require-all
+45 silly addNameRange { name: 'require-all', range: '*', hasData: false }
+46 silly mapToRegistry name require-all
+47 silly mapToRegistry using default registry
+48 silly mapToRegistry registry https://registry.npmjs.org/
+49 silly mapToRegistry uri https://registry.npmjs.org/require-all
+50 verbose addNameRange registry:https://registry.npmjs.org/require-all not in flight; fetching
+51 verbose request uri https://registry.npmjs.org/require-all
+52 verbose request no auth needed
+53 info attempt registry request try #1 at 14:25:04
+54 verbose request using bearer token for auth
+55 verbose request id bdc627c103a5fc36
+56 verbose etag "YO626IX6ZHO68CL87C5BJENS"
+57 http request GET https://registry.npmjs.org/require-all
+58 http 304 https://registry.npmjs.org/require-all
+59 silly get cb [ 304,
+59 silly get   { 'cache-control': 'max-age=300',
+59 silly get     'accept-ranges': 'bytes',
+59 silly get     date: 'Thu, 04 Feb 2016 06:25:04 GMT',
+59 silly get     via: '1.1 varnish',
+59 silly get     connection: 'keep-alive',
+59 silly get     'x-served-by': 'cache-nrt6123-NRT',
+59 silly get     'x-cache': 'MISS',
+59 silly get     'x-cache-hits': '0',
+59 silly get     'x-timer': 'S1454567104.770797,VS0,VE136' } ]
+60 verbose etag https://registry.npmjs.org/require-all from cache
+61 verbose get saving require-all to /Users/bjhl/.npm/registry.npmjs.org/require-all/.cache.json
+62 silly addNameRange number 2 { name: 'require-all', range: '*', hasData: true }
+63 silly addNameRange versions [ 'require-all',
+63 silly addNameRange   [ '0.0.1',
+63 silly addNameRange     '0.0.2',
+63 silly addNameRange     '0.0.3',
+63 silly addNameRange     '0.0.4',
+63 silly addNameRange     '0.0.5',
+63 silly addNameRange     '0.0.6',
+63 silly addNameRange     '0.0.8',
+63 silly addNameRange     '1.0.0',
+63 silly addNameRange     '1.1.0',
+63 silly addNameRange     '2.0.0' ] ]
+64 silly addNamed require-all@2.0.0
+65 verbose addNamed "2.0.0" is a plain semver version for require-all
+66 silly cache afterAdd require-all@2.0.0
+67 verbose afterAdd /Users/bjhl/.npm/require-all/2.0.0/package/package.json not in flight; writing
+68 verbose afterAdd /Users/bjhl/.npm/require-all/2.0.0/package/package.json written
+69 silly install resolved [ { name: 'require-all',
+69 silly install resolved     description: 'An easy way to require all files within a directory.',
+69 silly install resolved     version: '2.0.0',
+69 silly install resolved     author:
+69 silly install resolved      { name: 'Felix Geisendörfer',
+69 silly install resolved        email: 'felix@debuggable.com',
+69 silly install resolved        url: 'http://debuggable.com/' },
+69 silly install resolved     contributors: [ [Object], [Object] ],
+69 silly install resolved     license: 'MIT',
+69 silly install resolved     repository:
+69 silly install resolved      { type: 'git',
+69 silly install resolved        url: 'git+https://github.com/felixge/node-require-all.git' },
+69 silly install resolved     devDependencies: { semver: '4.3.2' },
+69 silly install resolved     files: [ 'LICENSE', 'index.js', 'Readme.md' ],
+69 silly install resolved     engines: { node: '*' },
+69 silly install resolved     scripts: { test: 'node test/test.js' },
+69 silly install resolved     gitHead: '5244bb1d24a24eb5272280a45ae89120dc7f0909',
+69 silly install resolved     bugs: { url: 'https://github.com/felixge/node-require-all/issues' },
+69 silly install resolved     homepage: 'https://github.com/felixge/node-require-all',
+69 silly install resolved     _id: 'require-all@2.0.0',
+69 silly install resolved     _shasum: '762a1f00c2fc1e24361981d4c1da31911f5fbe5d',
+69 silly install resolved     _from: 'require-all@*',
+69 silly install resolved     _npmVersion: '1.4.28',
+69 silly install resolved     _npmUser: { name: 'dougwilson', email: 'doug@somethingdoug.com' },
+69 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object] ],
+69 silly install resolved     dist:
+69 silly install resolved      { shasum: '762a1f00c2fc1e24361981d4c1da31911f5fbe5d',
+69 silly install resolved        tarball: 'http://registry.npmjs.org/require-all/-/require-all-2.0.0.tgz' },
+69 silly install resolved     directories: {},
+69 silly install resolved     _resolved: 'https://registry.npmjs.org/require-all/-/require-all-2.0.0.tgz',
+69 silly install resolved     readme: 'ERROR: No README data found!' } ]
+70 info install require-all@2.0.0 into /Users/bjhl/dev/codebase/rodos
+71 info installOne require-all@2.0.0
+72 verbose installOne of require-all to /Users/bjhl/dev/codebase/rodos not in flight; installing
+73 verbose lock using /Users/bjhl/.npm/_locks/require-all-12f8ee8f2d628bf9.lock for /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+74 silly install write writing require-all 2.0.0 to /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+75 verbose unbuild node_modules/require-all
+76 info preuninstall require-all@2.0.0
+77 info uninstall require-all@2.0.0
+78 verbose unbuild rmStuff require-all@2.0.0 from /Users/bjhl/dev/codebase/rodos/node_modules
+79 info postuninstall require-all@2.0.0
+80 silly gentlyRm /Users/bjhl/dev/codebase/rodos/node_modules/require-all is being purged from base /Users/bjhl/dev/codebase/rodos
+81 verbose gentlyRm don't care about contents; nuking /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+82 silly vacuum-fs purging /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+83 silly vacuum-fs quitting because other entries in /Users/bjhl/dev/codebase/rodos/node_modules
+84 verbose tar unpack /Users/bjhl/.npm/require-all/2.0.0/package.tgz
+85 verbose tar unpacking to /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+86 silly gentlyRm /Users/bjhl/dev/codebase/rodos/node_modules/require-all is being purged
+87 verbose gentlyRm don't care about contents; nuking /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+88 silly gunzTarPerm modes [ '755', '644' ]
+89 silly gunzTarPerm extractEntry package.json
+90 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+91 silly gunzTarPerm extractEntry LICENSE
+92 silly gunzTarPerm modified mode [ 'LICENSE', 438, 420 ]
+93 silly gunzTarPerm extractEntry index.js
+94 silly gunzTarPerm modified mode [ 'index.js', 438, 420 ]
+95 silly gunzTarPerm extractEntry Readme.md
+96 silly gunzTarPerm modified mode [ 'Readme.md', 438, 420 ]
+97 verbose write writing to /Users/bjhl/dev/codebase/rodos/node_modules/require-all/package.json
+98 info preinstall require-all@2.0.0
+99 verbose readDependencies loading dependencies from /Users/bjhl/dev/codebase/rodos/node_modules/require-all/package.json
+100 verbose readDependencies loading dependencies from /Users/bjhl/dev/codebase/rodos/node_modules/require-all/package.json
+101 silly install resolved []
+102 verbose about to build /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+103 info build /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+104 info linkStuff require-all@2.0.0
+105 silly linkStuff require-all@2.0.0 has /Users/bjhl/dev/codebase/rodos/node_modules as its parent node_modules
+106 verbose linkBins require-all@2.0.0
+107 verbose linkMans require-all@2.0.0
+108 verbose rebuildBundles require-all@2.0.0
+109 info install require-all@2.0.0
+110 info postinstall require-all@2.0.0
+111 verbose unlock done using /Users/bjhl/.npm/_locks/require-all-12f8ee8f2d628bf9.lock for /Users/bjhl/dev/codebase/rodos/node_modules/require-all
+112 verbose validateInstall loading /Users/bjhl/dev/codebase/rodos/package.json for validation
+113 verbose stack Error: The package reflect-metadata@0.1.3 does not satisfy its siblings' peerDependencies requirements!
+113 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
+113 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
+113 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
+113 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+113 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+113 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+113 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+113 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+113 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+113 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+114 verbose cwd /Users/bjhl/dev/codebase/rodos
+115 error Darwin 14.0.0
+116 error argv "/usr/local/bin/iojs" "/usr/local/bin/npm" "install" "require-all" "--save"
+117 error node v4.0.0
+118 error npm  v2.14.2
+119 error code EPEERINVALID
+120 error peerinvalid The package reflect-metadata@0.1.3 does not satisfy its siblings' peerDependencies requirements!
+120 error peerinvalid Peer angular2@2.0.0-beta.0 wants reflect-metadata@0.1.2
+121 verbose exit [ 1, true ]
