@@ -1,3 +1,3 @@
-# Rodos
-## A skeleton Nodejs and Angular2 Web project
+# LightbringerMVC
+## A Nodejs WebFramework
 ### Base on Typescript
