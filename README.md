@@ -9,6 +9,8 @@ No need to register routes again and again, all you need to do is define control
 You need a startup invocation to load all the controllers, that's it.
 
     registerActionsInKoa(app, [path.join(__dirname, '../controllers')]);
+    
+##Example
 how to define a controller
 
     @Controller('/user')
