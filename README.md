@@ -1,6 +1,6 @@
 GokuMVC
 ==============
-<img style='width:200px' src='http://i13.tietuku.com/003203c6a0e9a860.png'/>
+![](http://i13.tietuku.com/003203c6a0e9a860.png)
 
 A Nodejs WebApp Framework base on Typescript
 
