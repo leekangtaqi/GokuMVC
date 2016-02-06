@@ -2,6 +2,9 @@ GokuMVC
 ==============
 A Nodejs WebApp Framework base on Typescript
 
+Usage
+====
+how to define a controller
     @Controller('/user')
     class UserController{
       @Get('/:id')
