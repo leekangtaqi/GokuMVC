@@ -16,17 +16,18 @@ how to define a controller
       @Get('/:id')
       @log
       @Middleware([fn1])
+      @Render('/index')
       async getUserById(@Param() id: string){
         await ...
       }
       
-      @Post('/')
+      @Post('/', jsonResponse: true)
       @log
       async createUser(@Body user: any){
         await ...
       }
       
-      private fn1(){
+      private fn1(req: IRequest, res: IResponse, next: Function){
         //private middleware
         //todo something
       }
