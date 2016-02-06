@@ -21,7 +21,7 @@ how to define a controller
         await ...
       }
       
-      @Post('/', jsonResponse: true)
+      @Post('/', {jsonResponse: true})
       @log
       async createUser(@Body user: any){
         await ...
