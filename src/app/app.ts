@@ -3,7 +3,6 @@ import express = require('express');
 import bodyParser = require('body-parser');
 import methodOverride = require('method-override');
 import errorHandler = require('errorhandler');
-import dispatcher = require('../router');
 import swig = require('swig');
 import path = require('path');
 import serverStatic = require('serve-static');
@@ -12,8 +11,6 @@ import {registerActionsInExpressApp} from '../framework/rodos/Factory';
 declare var require;
 export var app = express();
 
-require('../controllers/UserController');
-require('../controllers/SpaController');
 registerActionsInExpressApp(app, [path.join(__dirname, '../controllers')]);
 
 app.set('views', path.join( __dirname, '../../../src/views'));

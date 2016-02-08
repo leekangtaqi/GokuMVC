@@ -25,7 +25,7 @@ export class DispatcherRunner{
         this.registerControllerActions(this._metadataStorage.controllerMetadatas);
     }
     loadFiles(dir: string, excludeFiles?: string[], recursive?: boolean){
-        this.requireAll({ dirname: dir, filter: null, excludeDirs: null, recursive: recursive });
+        this.requireAll({ dirname: dir, recursive: recursive });
     }
     registerControllerActions(controllerMetadatas: ControllerMetadata[]){
         controllerMetadatas.forEach(ctrl=>{

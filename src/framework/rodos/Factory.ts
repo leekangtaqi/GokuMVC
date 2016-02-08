@@ -7,7 +7,7 @@ export function registerActionsInExpressApp(express: any, requireDirs?:string[])
     var dispatcherRunner = new DispatcherRunner(expressApp);
     
     if(requireDirs && requireDirs.length){
-        requireDirs.map(dir=> dispatcherRunner.loadFiles(dir, null, true)); 
+        requireDirs.map(dir=> dispatcherRunner.loadFiles(dir, null, null, true)); 
     }
     
     dispatcherRunner.registerAllActions();
