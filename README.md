@@ -36,3 +36,8 @@ how to define a controller
         //todo something
       }
     }
+    
+##TODO
+1. Services intergration
+3. BeanFactory
+4. WebComponentFactory
