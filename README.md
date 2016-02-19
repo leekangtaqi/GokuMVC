@@ -16,8 +16,7 @@ You need a startup invocation to load all the controllers, that's it.
 ##Example
 how to define a controller
 
-    <!--lang:typescript-->
-    
+```typescript
     @Controller('/user')
     class UserController{
       @Get('/:id')
@@ -39,7 +38,8 @@ how to define a controller
         //todo something
       }
     }
-    
+```
+
 ##TODO
 1. Services intergration
 3. BeanFactory
