@@ -11,7 +11,7 @@ No need to register routes again and again, all you need to do is define control
 ##Usage
 You need a startup invocation to load all the controllers, that's it.
 
-```typescript
+```node.js
 registerActionsInKoa(app, [path.join(__dirname, '../controllers')]);
 ```
 
