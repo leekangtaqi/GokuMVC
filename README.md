@@ -16,7 +16,8 @@ You need a startup invocation to load all the controllers, that's it.
 ##Example
 how to define a controller
 
-    <!--lang:javascript-->
+    <!--lang:typescript-->
+    
     @Controller('/user')
     class UserController{
       @Get('/:id')
