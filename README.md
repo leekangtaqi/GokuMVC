@@ -17,27 +17,27 @@ You need a startup invocation to load all the controllers, that's it.
 how to define a controller
 
 ```typescript
-    @Controller('/user')
-    class UserController{
-      @Get('/:id')
-      @log
-      @Middleware([fn1])
-      @Render('/index')
-      async getUserById(@Param() id: string){
-        await ...
-      }
+@Controller('/user')
+class UserController{
+  @Get('/:id')
+  @log
+  @Middleware([fn1])
+  @Render('/index')
+  async getUserById(@Param() id: string){
+    await ...
+  }
       
-      @Post('/', {jsonResponse: true})
-      @log
-      async createUser(@Body user: any){
-        await ...
-      }
+  @Post('/', {jsonResponse: true})
+  @log
+  async createUser(@Body user: any){
+    await ...
+  }
       
-      private fn1(req: IRequest, res: IResponse, next: Function){
-        //private middleware
-        //todo something
-      }
-    }
+  private fn1(req: IRequest, res: IResponse, next: Function){
+    //private middleware
+    //todo something
+  }
+}
 ```
 
 ##TODO
