@@ -18,7 +18,7 @@ registerActionsInKoa(app, [path.join(__dirname, '../controllers')]);
 ##Example
 how to define a controller
 
-```typescript
+```node
 @Controller('/user')
 class UserController{
   @Get('/:id')
