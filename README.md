@@ -21,6 +21,12 @@ how to define a controller
 ```node
 @Controller('/user')
 class UserController{
+  @Param('id')
+  async getUserById(id: string, next){
+    this.user = await ... //get user by id from db
+    await next;
+  }
+
   @Get('/:id')
   @log
   @Middleware([filter])
@@ -39,7 +45,7 @@ class UserController{
     //middleware
     //todo something
     await ...
-    yield next; // do chain
+    await next; // do chain
   }
 }
 ```
