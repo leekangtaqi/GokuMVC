@@ -23,7 +23,7 @@ how to define a controller
 class UserController{
   @Get('/:id')
   @log
-  @Middleware([fn1])
+  @Middleware([filter])
   @Render('/index')
   async getUserById(@Param() id: string){
     await ...
@@ -35,9 +35,11 @@ class UserController{
     await ...
   }
       
-  private fn1(req: IRequest, res: IResponse, next: Function){
-    //private middleware
+  private async filter(req: IRequest, res: IResponse, next: Function){
+    //middleware
     //todo something
+    await ...
+    yield next; // do chain
   }
 }
 ```
