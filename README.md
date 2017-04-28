@@ -3,7 +3,7 @@ GokuMVC
 
 <img width="180" height="220" src="http://h.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=78ccb0ac7f310a55c471d6f082756f9f/a71ea8d3fd1f413418f02f21231f95cad0c85ead.jpg"/>
 
-A Nodejs WebApp Framework base on Typescript
+A Nodejs WebApp Framework - typescript
 
 Goku'll make your code more cleaner and simpler
 
