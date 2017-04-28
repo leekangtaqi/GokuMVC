@@ -1,2 +1,4 @@
 /// <reference path="./typings/tsd.d.ts" />
-require('./src');
+import { registerActionsInExpressApp } from './src/Factory'
+
+export { registerActionsInExpressApp }

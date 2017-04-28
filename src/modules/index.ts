@@ -1,3 +1,0 @@
-export = {
-    user: require('./User')
-}
