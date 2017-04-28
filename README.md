@@ -8,14 +8,17 @@ A Nodejs WebApp Framework base on Typescript
 Goku'll make your code more cleaner and simpler
 
 No need to register routes again and again, all you need to do is define controllers only, Goku will help you deal with the next things.
-##Usage
+
+**Usage**
+
 You need a startup invocation to load all the controllers, that's it.
 
 ```node
 registerActionsInKoa(app, [path.join(__dirname, '../controllers')]);
 ```
 
-##Example
+**Example**
+
 how to define a controller
 
 ```node
@@ -50,10 +53,10 @@ class UserController{
 }
 ```
 
-##TODO
+**TODO**
 1. Services intergration
 3. BeanFactory
 4. WebComponentFactory
 
-##Contact
+**Contact**
 QQ: 2811786667
