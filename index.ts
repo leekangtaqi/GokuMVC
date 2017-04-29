@@ -1,4 +1,4 @@
 /// <reference path="./typings/tsd.d.ts" />
-import { registerActionsInExpressApp } from './src/Factory'
+import Application from './src'
 
-export { registerActionsInExpressApp }
+export default Application

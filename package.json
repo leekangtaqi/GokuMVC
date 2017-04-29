@@ -1,37 +1,65 @@
 {
   "name": "GokuMVC",
-  "author": {
-    "name": "leekangtaqi"
-  },
-  "version": "0.0.1",
+  "version": "2.0.0",
+  "description": "",
   "main": "build/index.js",
   "scripts": {
-    "build": "gulp build",
-    "test": "./node_modules/mocha/bin/mocha index.js"
+    "test": "nodemon -w src -x ts-node src/example/index.ts",
+    "postinstall": "npm run build",
+    "build": "tsc",
+    "start": "node build/index.js",
+    "dev-server": "nodemon -w src -x ts-node src/index.ts",
+    "lint": "tslint src/**/*.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leekangtaqi/node-webapp-scaffolding.git"
+  },
+  "author": "leekangtaqi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leekangtaqi/node-webapp-scaffolding/issues"
+  },
+  "homepage": "https://github.com/leekangtaqi/node-webapp-scaffolding#readme",
   "dependencies": {
-    "bluebird": "2.9.34",
-    "body-parser": "^1.14.1",
-    "co": "^4.6.0",
-    "ejs": ">= 0.5.0",
-    "errorhandler": "^1.4.2",
-    "express": "^4.13.3",
-    "koa": "^1.1.2",
-    "log4js": "^0.6.26",
-    "method-override": "^2.3.5",
-    "serve-static": "*",
-    "swig": "*",
-    "typescript": "^1.9.0-dev.20160129",
-    "underscore": "1.8.3"
+    "@types/chalk": "^0.4.31",
+    "@types/express": "^4.0.35",
+    "@types/form-data": "0.0.33",
+    "@types/koa": "^2.0.39",
+    "@types/koa-bodyparser": "^3.0.23",
+    "@types/koa-router": "^7.0.22",
+    "@types/lodash": "^4.14.63",
+    "@types/mongoose": "^4.7.11",
+    "@types/node": "^7.0.14",
+    "chalk": "^1.1.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "glob": "^7.1.1",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.1.1",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.9.6",
+    "reflect-metadata": "^0.1.10",
+    "require-all": "*"
   },
   "devDependencies": {
-    "mocha": "2.1.0",
-    "chai": "3.3.0",
-    "gulp": "^3.9.0",
-    "gulp-typescript": "*",
-    "gulp-watch": "*"
-  },
-  "engines": {
-    "node": ">= 5.0.0"
+    "@types/bluebird": "^3.5.2",
+    "@types/chai": "^3.5.1",
+    "@types/mocha": "^2.2.41",
+    "@types/sinon": "^1.16.36",
+    "@types/sinon-chai": "^2.7.27",
+    "@types/superagent": "^2.0.36",
+    "@types/supertest-as-promised": "^2.0.34",
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "nodemon": "^1.11.0",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.9.0",
+    "supertest": "^1.2.0",
+    "supertest-as-promised": "^3.2.0",
+    "ts-node": "^1.7.3",
+    "tslint": "^3.15.1",
+    "typescript": "^2.2.2"
   }
 }

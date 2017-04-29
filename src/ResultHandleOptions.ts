@@ -15,6 +15,10 @@ export interface ResultHandleOptions {
     response: any;
 
     /**
+     * User context.
+     */
+    context: any
+    /**
      * Content to be sent in result.
      */
     content: any;
