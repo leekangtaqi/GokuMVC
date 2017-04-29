@@ -9,10 +9,30 @@ Goku'll make your code more cleaner and simpler
 
 **Usage**
 
-You need a startup invocation to load all the controllers, that's it.
+Simple -
+
+Goku will help you load async service, and startup after all ready.
+
+Remember, you need provide a entry to wire modules for Goku, that's it.
 
 ```node
-registerActionsInExpressApp(app, [path.join(__dirname, '../controllers')]);
+import Application, { IContext } from 'Goku'
+import context from './context'
+import * as path from 'path'
+
+let app = new Application()
+
+app.domainContext = context
+
+async function main(){
+  await app.readyAsync([path.join(__dirname, '../modules')]) // wire modules
+  app.listen(config.port, () => {
+    console.warn(`application is startup, listening on port ${config.port}`)
+  })
+}
+
+main();
+
 ```
 
 **Example**
