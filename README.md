@@ -1,13 +1,16 @@
 GokuMVC
 ==============
+<p align="center">
+<a target="_blank">
+<img width="180" style="margin: 0" src="https://github.com/leekangtaqi/ninjajs/raw/master/assets/images/ninja.png"/>
+</a>
+</p>
 
-<img width="180" height="220" src="http://h.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=78ccb0ac7f310a55c471d6f082756f9f/a71ea8d3fd1f413418f02f21231f95cad0c85ead.jpg"/>
+<p align="center"><b>A Nodejs WebApp Framework - typescript</b></p>
 
-A Nodejs WebApp Framework - typescript
+<p align="center"><b>Goku'll make your code more cleaner and simpler</b></p>
 
-Goku'll make your code more cleaner and simpler
-
-**Usage**
+## start
 
 Simple -
 
@@ -35,9 +38,7 @@ main();
 
 ```
 
-**Example**
-
-***controller***
+## controller
 
 Elegent -
 
@@ -79,7 +80,7 @@ class UserController{
 }
 ```
 
-***Service***
+## Service
 
 DI - 
 
@@ -118,7 +119,7 @@ You can get models froms application context easily and do not import anymore.
   }
 ```
 
-***Model***
+## Model
 
 Pure - 
 
@@ -146,7 +147,7 @@ class User {
 
 ```
 
-***Middleware*** 
+## Middleware
 
 Cascade - 
 
@@ -180,5 +181,5 @@ class UserController{
 
 ```
 
-**Contact**
+## Contact
 QQ: 2811786667
