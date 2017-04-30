@@ -2,7 +2,7 @@ GokuMVC
 ==============
 <p align="center">
 <a target="_blank">
-<img width="180" style="margin: 0" src="https://github.com/leekangtaqi/ninjajs/raw/master/assets/images/ninja.png"/>
+<img width="180" style="margin: 0" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493575174152&di=047ac09836fe969ffd8d340a232b4054&imgtype=0&src=http%3A%2F%2Fpre12.deviantart.net%2Fd554%2Fth%2Fpre%2Ff%2F2016%2F045%2F8%2F4%2Fgoku_ssj_dorado_by_naruto999_by_roker-d9rtfpg.png"/>
 </a>
 </p>
 
@@ -10,7 +10,7 @@ GokuMVC
 
 <p align="center"><b>Goku'll make your code more cleaner and simpler</b></p>
 
-## start
+## Start
 
 Simple -
 
@@ -38,7 +38,7 @@ main();
 
 ```
 
-## controller
+## Controller
 
 Elegent -
 
