@@ -146,7 +146,9 @@ class User {
 
 ```
 
-*** Middleware *** 
+***Middleware*** 
+
+Cascade - 
 
 You can decorate on a class or a method, goku will help you to register them.
 
