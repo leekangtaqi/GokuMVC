@@ -78,6 +78,7 @@ class UserController{
   }
 }
 ```
+
 ***Service***
 
 DI - 
@@ -140,6 +141,38 @@ class User {
   }
   options = {
     timestamps: true
+  }
+}
+
+```
+
+*** Middleware *** 
+
+You can decorate on a class or a method, goku will help you to register them.
+
+Goku's helper will provide practical tools to help you simplify writing.
+
+compose several middlewares to be a one.
+
+```node.js
+import { authA, authB, authC, authD } from './middlewares'
+import { compose } from 'GokuMVC'
+
+@Controller('/user')
+@UseBefore([authA, authB])
+class UserController{
+  @Param('id')
+  async getUserById(id: string, next){
+    this.user = await ... //get user by id from db
+    await next;
+  }
+
+  @Get('/:id')
+  @log
+  @UseBefore([compose(authC, authD)])
+  @Render('/index')
+  async getUserById(@Param() id: string){
+    await ...
   }
 }
 
