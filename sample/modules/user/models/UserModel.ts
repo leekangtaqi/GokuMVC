@@ -1,9 +1,13 @@
 'use strict';
-import { Domain } from '../../../../Decorators';
+
+import * as mongoose from 'mongoose';
+import { Domain } from '../../../../src';
 
 export interface IUser {
-  username: string
+  user: string
 }
+
+let Schema: any = mongoose.Schema
 
 @Domain()
 class User {

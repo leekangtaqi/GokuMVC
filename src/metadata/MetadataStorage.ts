@@ -4,6 +4,7 @@ import { ServiceMetadata } from './ServiceMetadata';
 import { ModelMetadata } from './ModelMetadata';
 import { ActionMetadata } from './ActionMetadata';
 import { MiddlewareMetadata } from './MiddlewareMetadata';
+import { UsesMetadata } from './UsesMetadata';
 import { ParamMetadata } from './ParamMetadata';
 import { ResponsePropertyMetadata } from './ResponsePropertyMetadata';
 
@@ -15,7 +16,7 @@ class MetadataStorage {
   private _middlewareMetadatas: MiddlewareMetadata[] = [];
   private _paramMetadatas: ParamMetadata[] = [];
   private _responsePropertyMetadatas: ResponsePropertyMetadata[] = [];
-
+  private _usesMetadatas: UsesMetadata[] = []
   get modelMetadatas(): ModelMetadata[] {
     return this._modelMetadatas;
   }
@@ -57,6 +58,10 @@ class MetadataStorage {
     this._middlewareMetadatas.push(middlewareMetadata);
     return this;
   }
+  addUseMetadata(usesMetadata: UsesMetadata) {
+    this._usesMetadatas.push(usesMetadata);
+    return this;
+  }
   addParamMetadata(paramMetadata: ParamMetadata) {
     this._paramMetadatas.push(paramMetadata);
     return this;
@@ -91,6 +96,16 @@ class MetadataStorage {
   findActionMetadatasForControllerMetadata(controllerMetadata: ControllerMetadata): ActionMetadata[] {
     return this._actionMetadatas.filter(action =>
       action.object.constructor === controllerMetadata.object)
+  }
+  findUsesForControllerMetadata(controllerMetadata: ControllerMetadata): UsesMetadata[] {
+    return this._usesMetadatas.filter(use => typeof use.methodName === 'undefined' && controllerMetadata.object.name === use.object.name)
+  }
+  findUsesForControllerMetadataAndActionMetadata(controllerMetadata: ControllerMetadata, actionMetadata: ActionMetadata): UsesMetadata[] {
+    return this._usesMetadatas.filter(use => {
+      return use.methodName 
+        && actionMetadata.method === use.methodName
+        && controllerMetadata.object.name === use.object.constructor.name
+    })
   }
 }
 export var defaultMetadataStorage = new MetadataStorage()

@@ -36,7 +36,7 @@ export class KoaServer implements Server, IApplication {
       throw new Error('Koa Router does not have such action ' + actionType);
     }
     if (middlewares && middlewares.length) {
-      router[actionType](...middlewares, route, (ctx: Context, next: Function) => executeCallback(ctx.request, ctx.response, ctx, next));
+      router[actionType](route, ...middlewares, (ctx: Context, next: Function) => executeCallback(ctx.request, ctx.response, ctx, next));
     } else {
       router[actionType](route, (ctx: Context, next: Function) => executeCallback(ctx.request, ctx.response, ctx, next));
     }
@@ -81,9 +81,9 @@ export class KoaServer implements Server, IApplication {
   handleResult(options: ResultHandleOptions) {
     var context: any = options.context;
     var response: Response = context.response;
-    if (options.headers) {
-      options.headers.forEach((header) => response.header(header.name, header.value))
-    }
+    // if (options.headers) {
+    //   options.headers.forEach((header) => response.header(header.name, header.value))
+    // }
     if (options.content) {
       if (options.renderedTemplate) {
         // const result = options.content && options.content instanceof Object ? options.content : {};

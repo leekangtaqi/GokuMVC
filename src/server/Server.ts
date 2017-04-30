@@ -17,7 +17,7 @@ export interface Server {
    * @param actionType HTTP action to be performed on registered path (GET, POST, etc.)
    * @param executeCallback Function to be called when request comes on the given route with the given action
    */
-  registerAction(router: any, route: string | RegExp, actionType: string, executeCallback: (req: any, res: any, ctx: any) => any, middlewares?: Function[]): void;
+  registerAction(router: any, route: string | RegExp, actionType: string, executeCallback: (req: any, res: any, ctx: any) => any, middlewares?: any[]): void;
   /**
    * Gets param from the request.
    *

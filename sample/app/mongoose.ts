@@ -1,6 +1,6 @@
 import config from './config';
 
-var settings: any = config.mongo;
+var settings = config.mongo;
 var mongoose = require('mongoose');
 var makeUrl = function(mongo: any){
     var authPart = settings.username + ':' + settings.password + '@';

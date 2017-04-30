@@ -1,9 +1,10 @@
-import { IApplicationContext } from '../../../../context'
-import { Service } from '../../../../Decorators'
+import { IApplicationContext } from '../../../../src/context'
+import { Service } from '../../../../src'
 
 export interface IUserService {
+  find: Function,
   create: Function,
-  find: Function
+  update: Function
 }
 
 @Service()
@@ -15,13 +16,17 @@ export default class UserService implements IUserService{
   }
 
   async create(userMeta: any){
-    let User = this.context.models.User
+    let User = this.context.models.UserModel
     let user = new User(userMeta)
     await user.save()
     return user
   }
 
-  async find(userMeta: any){
+  async update(userMeta: any){
+    
+  }
+
+  async find(){
     let User = this.context.models.User
     return await User.find().exec()
   }

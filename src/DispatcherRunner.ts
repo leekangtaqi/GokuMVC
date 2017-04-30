@@ -3,6 +3,7 @@ import { defaultMetadataStorage } from './metadata/MetadataStorage';
 import { ControllerMetadata, ControllerType } from './metadata/ControllerMetadata';
 import { ActionMetadata, ActionOptions } from './metadata/ActionMetadata';
 import { MiddlewareMetadata } from './metadata/MiddlewareMetadata';
+import { UsesMetadata } from './metadata/UsesMetadata';
 import { ResponsePropertyMetadata, ResponsePropertyType } from './metadata/ResponsePropertyMetadata';
 import { ParamMetadata } from './metadata/ParamMetadata';
 import { Server } from './server/Server';
@@ -55,9 +56,27 @@ export class DispatcherRunner {
   private registerAction(controller: ControllerMetadata, action: ActionMetadata, properties: ResponsePropertyMetadata[], middlewares?: MiddlewareMetadata[], params?: ParamMetadata[]) {
     var path = this.composePath(controller, action);
     controller.router = this.framework.getRouter();
-    this.framework.registerAction(controller.router, path, action.type, async (request: any, response: any, ctx?: any, next?: Function) => {
-      await this.handle(request, response, controller, action, properties, params, ctx, next)
-    })
+    var args = [
+      controller.router, 
+      path, 
+      action.type, 
+      async (request: any, response: any, ctx?: any, next?: Function) => await this.handle(request, response, controller, action, properties, params, ctx, next)
+    ]
+    var usesForController = this._metadataStorage.findUsesForControllerMetadata(controller)
+    var usesForAction = this._metadataStorage.findUsesForControllerMetadataAndActionMetadata(controller, action)
+    let refinedMiddlewares = this.arrangeUses(usesForController, usesForAction)
+    refinedMiddlewares && refinedMiddlewares.length && (args.push(refinedMiddlewares))
+    this.framework.registerAction.apply(this.framework, args);
+  }
+  private arrangeUses(usesForControllerMetadata: UsesMetadata[], usesForActionMetadata: UsesMetadata[]): Array<Function> {
+    let middlewares: Array<Function> = []
+    if ( usesForControllerMetadata && usesForControllerMetadata.length){
+      usesForControllerMetadata.map(u => middlewares = middlewares.concat(u.middlewares))
+    }
+    if ( usesForActionMetadata && usesForActionMetadata.length){
+      usesForActionMetadata.map(u => middlewares = middlewares.concat(u.middlewares))
+    }
+    return middlewares;
   }
   private composePath(controllerMetadata: ControllerMetadata, actionMetadata: ActionMetadata) {
     var path = '';

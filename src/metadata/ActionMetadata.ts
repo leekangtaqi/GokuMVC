@@ -44,4 +44,5 @@ export class ActionType{
     static POST = 'POST';
     static PUT = 'PUT';
     static DELETE = 'DELETE';
+    static USE = 'USE';
 }

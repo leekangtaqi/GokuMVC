@@ -6,7 +6,7 @@ import { defaultMetadataStorage } from './metadata/MetadataStorage';
 import { ControllerType } from './metadata/ControllerMetadata';
 import { ResponsePropertyType } from './metadata/ResponsePropertyMetadata';
 import { Model } from 'mongoose';
-
+import { UsesType } from './metadata/UsesMetadata';
 
 export function Domain() {
   return function (object: any) {
@@ -32,11 +32,45 @@ export function Controller(baseRoute?: string) {
     })
   }
 }
-export function Middeware() {
+export function GlobalMiddleware() {
   return function (object: Object, methodName: string) {
     defaultMetadataStorage.addMiddlewareMetadata({
       object: object,
       method: methodName
+    })
+  }
+}
+export function Middleware() {
+  return function (object: Object, methodName: string) {
+    defaultMetadataStorage.addMiddlewareMetadata({
+      object: object,
+      method: methodName
+    })
+  }
+}
+
+export function UseBefore(middlewares: Function[]): Function;
+export function UseBefore(middlewares: any[]): Function {
+  return function (object: any, methodName?: string) {
+    defaultMetadataStorage.addUseMetadata({
+      object,
+      methodName,
+      type: UsesType.BEFORE,
+      middlewares
+    })
+  }
+}
+
+export function Use(route?: RegExp, options?: ActionOptions): Function;
+export function Use(route?: string, options?: ActionOptions): Function;
+export function Use(route?: RegExp | string, options?: ActionOptions): Function {
+  return function (object: Object, methodName: string) {
+    defaultMetadataStorage.addActionMetadata({
+      route: route,
+      object: object,
+      method: methodName,
+      options: options,
+      type: ActionType.USE
     })
   }
 }
