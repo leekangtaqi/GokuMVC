@@ -52,14 +52,12 @@ You can get services from the application context. Goku get a big meal for you, 
 @Controller('/user')
 class UserController{
   @Param('id')
-  async getUserById(id: string, next){
-    this.user = await ... //get user by id from db
-    await next;
+  async getUserById(id: string, ctx: IContext, next: Function){
+    return await ctx.app.ctx.UserService.findById(id) // get service from application context.
   }
 
   @Get('/:id')
   @log
-  @Middleware([filter])
   @Render('/index')
   async getUserById(@Param() id: string){
     await ...
@@ -69,13 +67,6 @@ class UserController{
   @log
   async createUser(@Body user: any){
     await ...
-  }
-      
-  private async filter(req: IRequest, res: IResponse, next: Function){
-    //middleware
-    //todo something
-    await ...
-    await next; // do chain
   }
 }
 ```
@@ -106,7 +97,7 @@ You can get models froms application context easily and do not import anymore.
     }
 
     async create(userMeta: any){
-      let User = this.context.models.User
+      let User = this.context.models.User  // get model from service context directly.
       let user = new User(userMeta)
       await user.save()
       return user
@@ -158,11 +149,11 @@ Goku's helper will provide practical tools to help you simplify writing.
 compose several middlewares to be a one.
 
 ```node.js
-import { authA, authB, authC, authD } from './middlewares'
+import { authA, authB, authC, authD, composedAuthEAndAuthF } from './middlewares'
 import { compose } from 'GokuMVC'
 
 @Controller('/user')
-@UseBefore([authA, authB])
+@UseBefore([authA, authB, composedAuthEAndAuthF])
 class UserController{
   @Param('id')
   async getUserById(id: string, next){
