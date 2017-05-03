@@ -1,5 +1,7 @@
 import Application, { IApplication, IContext } from './app'
 import { IMiddleware, compose } from './middleware'
+import { IApplicationContext } from './context'
+
 import {
   Get, 
   Use,
@@ -34,6 +36,7 @@ export {
   GlobalMiddleware,
   Application,
   IApplication,
+  IApplicationContext,
   IContext,
   IMiddleware,
   compose

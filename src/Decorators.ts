@@ -36,15 +36,16 @@ export function GlobalMiddleware() {
   return function (object: Object, methodName: string) {
     defaultMetadataStorage.addMiddlewareMetadata({
       object: object,
-      method: methodName
+      isGlobal: true
     })
   }
 }
 export function Middleware() {
-  return function (object: Object, methodName: string) {
+  return function (object: any) {
     defaultMetadataStorage.addMiddlewareMetadata({
       object: object,
-      method: methodName
+      isGlobal: false,
+      instance: object.prototype.use
     })
   }
 }

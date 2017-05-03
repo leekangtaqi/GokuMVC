@@ -1,10 +1,9 @@
-import { Controller, Param, Get } from '../../../../src'
-import { Context } from 'koa'
+import { Controller, Param, Get, IContext } from '../../../../src'
 
 @Controller('/')
 export default class MainController {
   @Get('/')
-  async getMain( { ctx }: { ctx: any } ){
+  async getMain( { ctx }: { ctx: IContext } ){
     return `Hello World`
   }
 }

@@ -1,5 +1,4 @@
 import { Controller, Param, Get } from '../../../../src'
-import { Context } from 'koa'
 
 @Controller('/commodity')
 export default class CommodityController {

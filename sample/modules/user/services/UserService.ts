@@ -1,10 +1,10 @@
-import { IApplicationContext } from '../../../../src/context'
-import { Service } from '../../../../src'
+import { Service, IApplicationContext } from '../../../../src'
 
 export interface IUserService {
   find: Function,
   create: Function,
-  update: Function
+  update: Function,
+  findById: Function
 }
 
 @Service()
@@ -29,5 +29,10 @@ export default class UserService implements IUserService{
   async find(){
     let User = this.context.models.User
     return await User.find().exec()
+  }
+
+  async findById(id: string){
+    let docs = await this.find();
+    return docs[0]
   }
 }
