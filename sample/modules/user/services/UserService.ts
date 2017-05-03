@@ -1,10 +1,10 @@
 import { Service, IApplicationContext } from '../../../../src'
 
 export interface IUserService {
-  find: Function,
-  create: Function,
+  find(),
+  create(user: any),
   update: Function,
-  findById: Function
+  findById(id: string)
 }
 
 @Service()
