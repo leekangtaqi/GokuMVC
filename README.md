@@ -23,7 +23,7 @@ import Application, { IContext } from 'Goku'
 import context from './context'
 import * as path from 'path'
 
-let app = new Application()
+const app = new Application()
 
 app.domainContext = context
 
