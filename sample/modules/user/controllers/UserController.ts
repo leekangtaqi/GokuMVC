@@ -7,7 +7,7 @@ import { IUserService } from '../../interfaces'
 export default class UserController {
   @Get('/')
   @UseBefore([mw3])
-  async getUser( { ctx }: { ctx: any } ){
+  async getUser({ ctx }: { ctx: any }) {
     try {
       let UserService: IUserService = ctx.app.ctx.services.UserService
       return await UserService.find()
@@ -17,7 +17,7 @@ export default class UserController {
   }
 
   @Get('/:id')
-  async getUserById(@Param('id') id: string, { ctx }: { ctx: any } ){
+  async getUserById( @Param('id') id: string, { ctx }: { ctx: any }) {
     try {
       return await ctx.app.ctx.services.UserService.findById(id)
     } catch (e) {

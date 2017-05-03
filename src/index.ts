@@ -3,11 +3,11 @@ import { IMiddleware, compose } from './middleware'
 import { IApplicationContext } from './context'
 import { VERSION } from './const'
 import {
-  Get, 
+  Get,
   Use,
-  Middleware, 
+  Middleware,
   UseBefore,
-  Param, 
+  Param,
   Body,
   Req,
   Res,
@@ -20,11 +20,11 @@ import {
 } from './Decorators'
 
 export {
-  Get, 
+  Get,
   Use,
-  Middleware, 
+  Middleware,
   UseBefore,
-  Param, 
+  Param,
   Body,
   Req,
   Res,

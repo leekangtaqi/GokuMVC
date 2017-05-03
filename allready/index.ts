@@ -197,10 +197,10 @@ Ar.prototype.redis = function(client:any){
 Ar.prototype.mongoose = function(client:any){
     var r = this;
     return new C(null, client, function(service:any, nameId:any){
-        if(service.connection.readyState === 1 ||
-            service.connection.readyState === 2){
-            return r.up(nameId, service);
-        }
+        // if(service.connection.readyState === 1 ||
+        //     service.connection.readyState === 2){
+        //     return r.up(nameId, service);
+        // }
         service.connection.on('open', openHandler);
         function openHandler(){
             r.up(nameId, service);

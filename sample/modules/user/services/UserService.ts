@@ -8,14 +8,14 @@ export interface IUserService {
 }
 
 @Service()
-export default class UserService implements IUserService{
+export default class UserService implements IUserService {
   context: IApplicationContext = null
 
-  constructor(context: IApplicationContext){
+  constructor(context: IApplicationContext) {
     this.context = context;
   }
 
-  async create(userMeta: any){
+  async create(userMeta: any) {
     try {
       let User = this.context.models.UserModel
       let user = new User(userMeta)
@@ -26,11 +26,11 @@ export default class UserService implements IUserService{
     }
   }
 
-  async update(userMeta: any){
-    
+  async update(userMeta: any) {
+
   }
 
-  async find(){
+  async find() {
     try {
       let User = this.context.models.User
       return await User.find().exec()
@@ -39,12 +39,12 @@ export default class UserService implements IUserService{
     }
   }
 
-  async findById(id: string){
+  async findById(id: string) {
     try {
       let docs = await this.find();
       return docs[0]
     } catch (e) {
       throw e
-    }    
+    }
   }
 }
