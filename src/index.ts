@@ -1,7 +1,7 @@
 import Application, { IApplication, IContext } from './app'
 import { IMiddleware, compose } from './middleware'
 import { IApplicationContext } from './context'
-
+import { VERSION } from './const'
 import {
   Get, 
   Use,
@@ -42,4 +42,4 @@ export {
   compose
 }
 
-export default { version: '2.0' }
+export default { version: VERSION }

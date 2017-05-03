@@ -16,10 +16,14 @@ export default class UserService implements IUserService{
   }
 
   async create(userMeta: any){
-    let User = this.context.models.UserModel
-    let user = new User(userMeta)
-    await user.save()
-    return user
+    try {
+      let User = this.context.models.UserModel
+      let user = new User(userMeta)
+      await user.save()
+      return user
+    } catch (e) {
+      throw e
+    }
   }
 
   async update(userMeta: any){
@@ -27,12 +31,20 @@ export default class UserService implements IUserService{
   }
 
   async find(){
-    let User = this.context.models.User
-    return await User.find().exec()
+    try {
+      let User = this.context.models.User
+      return await User.find().exec()
+    } catch (e) {
+      throw e
+    }
   }
 
   async findById(id: string){
-    let docs = await this.find();
-    return docs[0]
+    try {
+      let docs = await this.find();
+      return docs[0]
+    } catch (e) {
+      throw e
+    }    
   }
 }
