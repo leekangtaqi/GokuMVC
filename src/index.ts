@@ -5,8 +5,10 @@ import { VERSION } from './const'
 import {
   Get,
   Use,
+  Mount,
   Middleware,
   UseBefore,
+  UseAfter,
   Param,
   Body,
   Req,
@@ -22,8 +24,10 @@ import {
 export {
   Get,
   Use,
+  Mount,
   Middleware,
   UseBefore,
+  UseAfter,
   Param,
   Body,
   Req,

@@ -3,7 +3,7 @@ import { defaultMetadataStorage } from './metadata/MetadataStorage';
 import { ControllerMetadata, ControllerType } from './metadata/ControllerMetadata';
 import { ActionMetadata, ActionOptions } from './metadata/ActionMetadata';
 import { MiddlewareMetadata } from './metadata/MiddlewareMetadata';
-import { UsesMetadata } from './metadata/UsesMetadata';
+import { UsesMetadata, UsesType } from './metadata/UsesMetadata';
 import { ResponsePropertyMetadata, ResponsePropertyType } from './metadata/ResponsePropertyMetadata';
 import { ParamMetadata } from './metadata/ParamMetadata';
 import { Server } from './server/Server';
@@ -33,30 +33,75 @@ export class DispatcherRunner {
   registerAllActions() {
     this.registerControllerActions(this._metadataStorage.controllerMetadatas);
   }
+
   loadFiles(dir: string, excludeFiles?: string[], recursive?: boolean) {
     this.requireAll({ dirname: dir, recursive: true, filter      :  /(Controller|Service|Model|Middleware)\.ts/, });
   }
+
   registerControllerActions(controllerMetadatas: ControllerMetadata[]) {
-    controllerMetadatas.forEach(ctrl => {
-      this._metadataStorage.findActionMetadatasForControllerMetadata(ctrl)
-        .forEach(action => {
-          const middlewares = this._metadataStorage.findMiddlewareMetadatasFromControllerMetadata(ctrl);
-          const params = this._metadataStorage.findParamMetadatasFromControllerMetadataAndActionMetadata(ctrl, action);
-          const propertyMetadata = this._metadataStorage.findResponsePropertyMetadataForControllerAndActionMetadata(ctrl, action);
-          this.registerAction(ctrl, action, propertyMetadata, middlewares, params);
-        })
+    controllerMetadatas.filter(ctrl => ctrl.route && !ctrl.parent).forEach(ctrl => {
+      let ctrls = this._metadataStorage.findActionMetadatasForControllerMetadata(ctrl)
+      ctrls.forEach((action, index) => {
+        const middlewares = this._metadataStorage.findMiddlewareMetadatasFromControllerMetadata(ctrl);
+        const params = this._metadataStorage.findParamMetadatasFromControllerMetadataAndActionMetadata(ctrl, action);
+        const propertyMetadata = this._metadataStorage.findResponsePropertyMetadataForControllerAndActionMetadata(ctrl, action);
+        this.registerAction(null, ctrl, action, propertyMetadata, index ===  0, index === ctrls.length - 1, middlewares, params);
+      })
+    })
+    this.bfsRegisterSubcontrollerActions(null, controllerMetadatas);
+    this.framework.routes()
+  }
+
+  bfsRegisterSubcontrollerActions(root: ControllerMetadata, controllerMetadatas: ControllerMetadata[]) {
+    let nodes = null
+    if (!root) {
+      nodes = controllerMetadatas.filter(c => !c.parent)
+    } else {
+      nodes = controllerMetadatas.filter(c => c.parent && c.parent.constructor === root.object)
+    }
+    if (!nodes || !nodes.length) {
+      return
+    }
+    nodes.forEach(n => {
+      if (!n.router) {
+        this.registerSubActions(n)
+      }
+      this.bfsRegisterSubcontrollerActions(n, controllerMetadatas)
     })
   }
+
+  registerSubActions(ctrl) {
+    let [ parent ] = this._metadataStorage.controllerMetadatas.filter(c => c.object === ctrl.parent.constructor)
+    let actions = this._metadataStorage.findActionMetadatasForControllerMetadata(ctrl)
+    actions.forEach((action, index) => {
+      const middlewares = this._metadataStorage.findMiddlewareMetadatasFromControllerMetadata(ctrl);
+      const params = this._metadataStorage.findParamMetadatasFromControllerMetadataAndActionMetadata(ctrl, action);
+      const propertyMetadata = this._metadataStorage.findResponsePropertyMetadataForControllerAndActionMetadata(ctrl, action);
+      this.registerAction({ prefix: ctrl.route, router: parent.router }, ctrl, action, propertyMetadata, index === 0, index === actions.length - 1, middlewares, params);
+    })
+  }
+
   private set container(value: any) {
     this._container = value;
   }
+
   private set isLogErrorEnable(boolean: any) {
     this._isLogErrorEnable = boolean;
   }
-  private registerAction(controller: ControllerMetadata, action: ActionMetadata, properties: ResponsePropertyMetadata[], middlewares?: MiddlewareMetadata[], params?: ParamMetadata[]) {
-    var path = this.composePath(controller, action);
-    controller.router = this.framework.getRouter();
+
+  private registerAction(root: any, controller: ControllerMetadata, action: ActionMetadata, properties: ResponsePropertyMetadata[], isNew, isComplete, middlewares?: MiddlewareMetadata[], params?: ParamMetadata[]) {
+    let path = action.route;
+    let router = null 
+    if (controller.router) {
+      router = controller.router
+    } else if (controller.parent) {
+      router = this.framework.getRouter()
+    } else {
+      router = this.framework.getRouter(controller.route)
+    }
+    controller.router = router
     var args = [
+      root,
       controller.router, 
       path, 
       action.type, 
@@ -64,26 +109,59 @@ export class DispatcherRunner {
     ]
     var usesForController = this._metadataStorage.findUsesForControllerMetadata(controller)
     var usesForAction = this._metadataStorage.findUsesForControllerMetadataAndActionMetadata(controller, action)
-    let refinedMiddlewares = this.arrangeUses(usesForController, usesForAction)
-    refinedMiddlewares && refinedMiddlewares.length && (args.push(refinedMiddlewares))
+    let [beforeControllerMiddlewares, afterControllerMiddlewares, beforeActionMiddlewares, afterActionMiddlewares] = this.arrangeUses(usesForController, usesForAction)
+    args = [...args, 
+      isNew, 
+      isComplete, 
+      beforeControllerMiddlewares || [],
+      afterControllerMiddlewares || [],
+      beforeActionMiddlewares,
+      afterActionMiddlewares
+    ]
     this.framework.registerAction.apply(this.framework, args);
   }
-  private arrangeUses(usesForControllerMetadata: UsesMetadata[], usesForActionMetadata: UsesMetadata[]): Array<Function> {
-    let middlewares: Array<Function> = []
-    if ( usesForControllerMetadata && usesForControllerMetadata.length){
-      usesForControllerMetadata.map(u => middlewares = middlewares.concat(u.middlewares))
+
+  private arrangeUses(usesForControllerMetadata: UsesMetadata[], usesForActionMetadata: UsesMetadata[]): Array<any> {
+    let res = []
+    let beforeControllerMiddlewares = []
+    let afterControllerMiddlewares = []
+    let beforeActionMiddlewares = []
+    let afterActionMiddlewares = []
+    if ( usesForControllerMetadata && usesForControllerMetadata.length) {
+      usesForControllerMetadata.map(u => {
+        if (u.type === UsesType.BEFORE) {
+          beforeControllerMiddlewares = beforeControllerMiddlewares.concat(u.middlewares)
+        } else {
+          afterControllerMiddlewares = afterControllerMiddlewares.concat(u.middlewares)
+        }
+      })
     }
-    if ( usesForActionMetadata && usesForActionMetadata.length){
-      usesForActionMetadata.map(u => middlewares = middlewares.concat(u.middlewares))
+    if ( usesForActionMetadata && usesForActionMetadata.length) {
+      usesForActionMetadata.map(u => {
+        if (u.type === UsesType.BEFORE) {
+          beforeActionMiddlewares = beforeActionMiddlewares.concat(u.middlewares)
+        } else {
+          afterActionMiddlewares = afterActionMiddlewares.concat(u.middlewares)
+        }
+      })
     }
-    return middlewares;
+    return [
+      beforeControllerMiddlewares, 
+      afterControllerMiddlewares,
+      beforeActionMiddlewares,
+      afterActionMiddlewares
+    ];
   }
+
   private composePath(controllerMetadata: ControllerMetadata, actionMetadata: ActionMetadata) {
     var path = '';
-    path += controllerMetadata.route ? controllerMetadata.route : '';
+    if (!controllerMetadata.parent) {
+      path += controllerMetadata.route ? controllerMetadata.route : '';
+    }
     path += actionMetadata.route ? actionMetadata.route : '';
     return path;
   }
+
   private async handle(req: any,
     res: any,
     controllerMetadata: ControllerMetadata,
@@ -152,25 +230,30 @@ export class DispatcherRunner {
         }
       }
       result = await controllerObject[actionMetadata.method].apply(controllerObject, args);
+      await next()
       this.handleSuccess(result, resultOptions);
     } catch (e) {
       this.handleError(e, resultOptions);
     }
   }
+
   public wireModules() {
     this.collectModelsToApplicationContext()
     this.collectServicesToApplicationContext()
     this.framework.ctx = this.applicationContext;
   }
+
   get applicationContext() {
     return this._applicationContext;
   }
+
   private collectModelsToApplicationContext() {
     let models = this._metadataStorage.modelMetadatas;
     models.forEach(metadata => {
       this._domainBuilder.build(metadata)
     })
   }
+
   private collectServicesToApplicationContext() {
     let services = this._metadataStorage.serviceMetadatas;
     services.forEach(metadata => {
@@ -178,6 +261,7 @@ export class DispatcherRunner {
       this.applicationContext.services[<any>metadata.object.name] = serviceInst;
     })
   }
+
   private isActionMustReturnJson(controllerType: ControllerType, actionOption: ActionOptions): boolean {
     if (actionOption && actionOption.jsonResponse) {
       return true;
@@ -187,6 +271,7 @@ export class DispatcherRunner {
     }
     return controllerType === ControllerType.Json;
   }
+
   private getControllerInstance(metadata: ControllerMetadata) {
     if (this._container) {
       return this._container.get(metadata.object.name);
@@ -196,10 +281,12 @@ export class DispatcherRunner {
     }
     return metadata.instance;
   }
+
   private handleSuccess(value: any, resultOptions: ResultHandleOptions) {
     resultOptions.content = value;
     this.framework.handleSuccess(resultOptions);
   }
+
   private handleError(e: Error, resultOptions: ResultHandleOptions) {
     if (this._isLogErrorEnable) {
       console.error(e.stack ? e.stack : e);

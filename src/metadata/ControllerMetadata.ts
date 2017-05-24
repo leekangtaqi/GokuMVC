@@ -20,6 +20,8 @@ export interface ControllerMetadata{
      * Controller type. Can be default, or json-typed. Can be one of the value defined in ControllerType class.
      */
     type: number;
+
+    parent?: any;
 }
 export enum ControllerType{
     /**

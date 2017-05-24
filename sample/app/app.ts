@@ -13,6 +13,7 @@ app.domainContext = context
 
 async function main(){
   await app.readyAsync([path.join(__dirname, '../modules')])
+  
   app.listen(config.port, () => {
     console.warn(`application is startup, listening on port ${config.port}`)
   })

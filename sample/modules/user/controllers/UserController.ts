@@ -1,10 +1,16 @@
-import { Controller, Param, Get, UseBefore } from '../../../../src'
+import { Controller, Param, Get, UseBefore, UseAfter, Mount } from '../../../../src'
 import { mw1, mw2, mw3, composedByMw1AndMw2 } from './UserMiddlewares'
 import { IUserService } from '../../interfaces'
+import OrderController from './OrderController'
 
 @Controller('/api/user')
 @UseBefore([composedByMw1AndMw2])
+@UseAfter([async function useAfter(ctx, next) {
+  console.warn('use after **********')
+  await next()
+}])
 export default class UserController {
+
   @Get('/')
   @UseBefore([mw3])
   async getUser({ ctx }: { ctx: any }) {
@@ -16,6 +22,9 @@ export default class UserController {
     }
   }
 
+  @Mount('/order', OrderController)
+  public routes = null
+
   @Get('/:id')
   async getUserById( @Param('id') id: string, { ctx }: { ctx: any }) {
     try {
@@ -24,4 +33,5 @@ export default class UserController {
       console.error(e)
     }
   }
+
 }

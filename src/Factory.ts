@@ -18,15 +18,15 @@ export function registerActionsInKoaApp(koa: any, context: IDomainContext, requi
 }
 
 export function registerActionsInExpressApp(express: any, context: IDomainContext, requireDirs?: string[]) {
-  let expressApp = new ExpressServer(express);
-  let dispatcherRunner = new DispatcherRunner(expressApp, context);
+//   let expressApp = new ExpressServer(express);
+//   let dispatcherRunner = new DispatcherRunner(expressApp, context);
 
-  if (requireDirs && requireDirs.length) {
-    requireDirs.map(dir => dispatcherRunner.loadFiles(dir, null, true));
+//   if (requireDirs && requireDirs.length) {
+//     requireDirs.map(dir => dispatcherRunner.loadFiles(dir, null, true));
   }
 
-  dispatcherRunner.registerAllActions();
-  dispatcherRunner.wireModules();
+//   dispatcherRunner.registerAllActions();
+//   dispatcherRunner.wireModules();
 
-  return dispatcherRunner;
-}
+//   return dispatcherRunner;
+// }

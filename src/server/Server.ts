@@ -9,7 +9,7 @@ export interface Server {
    */
   ctx?: IApplicationContext;
 
-  getRouter(): any;
+  getRouter(prefix?:any): any;
   /**
    * Registers action in the server framework.
    *
@@ -17,7 +17,7 @@ export interface Server {
    * @param actionType HTTP action to be performed on registered path (GET, POST, etc.)
    * @param executeCallback Function to be called when request comes on the given route with the given action
    */
-  registerAction(router: any, route: string | RegExp, actionType: string, executeCallback: (req: any, res: any, ctx: any) => any, middlewares?: any[]): void;
+  registerAction(root: any, router: any, route: string | RegExp, actionType: string, executeCallback: (req: any, res: any, ctx: any) => any, isNew: boolean, isComplete: boolean, middlewares?: any[]): void;
   /**
    * Gets param from the request.
    *
@@ -40,4 +40,6 @@ export interface Server {
    * @param options Handling performs on these options
    */
   handleSuccess(options: ResultHandleOptions): void;
+
+  routes()
 }

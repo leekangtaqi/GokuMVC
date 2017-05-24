@@ -8,6 +8,19 @@ import { ResponsePropertyType } from './metadata/ResponsePropertyMetadata';
 import { Model } from 'mongoose';
 import { UsesType } from './metadata/UsesMetadata';
 
+export function Mount(baseRoute: string, object: any): any {
+  return function (target, name, descriptor) {
+    defaultMetadataStorage.addSubControllerMetadata(
+      {
+        route: baseRoute,
+        object: object,
+        type: ControllerType.Default,
+        parent: target
+      }
+    )
+  }
+}
+
 export function Domain() {
   return function (object: any) {
     defaultMetadataStorage.addModelMetadata({
@@ -46,6 +59,18 @@ export function Middleware() {
       object: object,
       isGlobal: false,
       instance: object.prototype.use
+    })
+  }
+}
+
+export function UseAfter(middlewares: Function[]): Function;
+export function UseAfter(middlewares: any[]): Function {
+  return function (object: any, methodName?: string) {
+    defaultMetadataStorage.addUseMetadata({
+      object,
+      methodName,
+      type: UsesType.AFTER,
+      middlewares
     })
   }
 }

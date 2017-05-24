@@ -89,9 +89,11 @@ class MetadataStorage {
   }
 
   findContollerMetadatasForClasses(ctrlClasses: Function[]): ControllerMetadata[] {
-    return this._controllerMetadatas.filter(ctrl =>
-      ctrlClasses.filter(
-        cls => ctrl.object === cls).length >= 0);
+    return this._controllerMetadatas.filter(ctrl => {
+      return ctrlClasses.filter(cls => {
+          return ctrl.object === cls
+        }).length > 0
+    });
   }
   findActionMetadatasForControllerMetadata(controllerMetadata: ControllerMetadata): ActionMetadata[] {
     return this._actionMetadatas.filter(action =>
@@ -106,6 +108,11 @@ class MetadataStorage {
         && actionMetadata.method === use.methodName
         && controllerMetadata.object.name === use.object.constructor.name
     })
+  }
+  
+  addSubControllerMetadata(controllerMetadata: ControllerMetadata) {
+    this._controllerMetadatas.push(controllerMetadata);
+    return this;
   }
 }
 export var defaultMetadataStorage = new MetadataStorage()
