@@ -50,7 +50,7 @@ You can get services from the application context. Goku get a big meal for you, 
 
 ```node
 @Controller('/user')
-class UserController{
+class UserController {
   @Param('id')
   async getUserById(id: string, ctx: IContext, next: Function){
     return await ctx.app.ctx.UserService.findById(id) // get service from application context.
@@ -67,6 +67,36 @@ class UserController{
   @log
   async createUser(@Body user: any){
     await ...
+  }
+}
+```
+
+## Nested router supported
+```javascript
+// userController.js
+import OrderController from '...'
+
+@Controller('/user')
+class UserController {
+  @Mount('/:id/order', OrderController)
+  public routes
+  
+  @Param('id')
+  async getUserById(id: string, ctx: IContext, next: Function){
+    return await ctx.app.ctx.UserService.findById(id) // get service from application context.
+  }
+
+  @Get('/:id')
+  async getUserById(@Param() id: string){
+    return await ...
+  }
+}
+
+// orderController.js
+class OrderController {
+  @Get('/:id')
+  async findOrderById() {
+    return await ....
   }
 }
 ```
