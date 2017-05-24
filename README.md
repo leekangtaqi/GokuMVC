@@ -10,6 +10,9 @@ GokuMVC
 
 <p align="center"><b>Goku'll make your code more cleaner and simpler</b></p>
 
+## Tips
+No longer compatible with express.js in 3.x
+
 ## Start
 
 Simple -
