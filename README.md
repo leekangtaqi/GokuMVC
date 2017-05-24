@@ -7,7 +7,7 @@ GokuMVC
 </p>
 
 <p align="center"><b>A Nodejs WebApp Framework - typescript</b></p>
-
+<p align="center"><b>Compatible with koa.js and express.js</b></p>
 <p align="center"><b>Goku'll make your code more cleaner and simpler</b></p>
 
 ## Tips
