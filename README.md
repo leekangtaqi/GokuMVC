@@ -173,7 +173,7 @@ class User {
 
 ## Middleware
 
-Cascade - 
+Cascade - UseBefore and UseAfter
 
 You can decorate on a class or a method, goku will help you to register them.
 
@@ -187,6 +187,7 @@ import { compose } from 'GokuMVC'
 
 @Controller('/user')
 @UseBefore([authA, authB, composedAuthEAndAuthF])
+@UseAfter([authC])
 class UserController{
   @Param('id')
   async getUserById(id: string, next){
