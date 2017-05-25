@@ -8,11 +8,19 @@ export default class TestController {
   }])
   @Get('/')
   async findTests() {
-    console.warn('33333')
+    console.warn('test => /')
     return '444'
   }
   
   @Get('/:id')
+  @UseAfter([async function xxx(ctx, next) {
+    console.warn('....')
+    await next()
+  }, async function(ctx, next) {
+    console.warn('....212121')   
+    await next()
+  }
+  ])
   async findTestById() {
     console.warn('33333')
     return '5555'

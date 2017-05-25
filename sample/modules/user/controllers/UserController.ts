@@ -8,6 +8,8 @@ import OrderController from './OrderController'
 @UseAfter([async function useAfter(ctx, next) {
   console.warn('use after **********')
   await next()
+}, async function test() {
+  console.warn('end *************')
 }])
 export default class UserController {
 

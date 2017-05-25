@@ -27,6 +27,8 @@ export interface Server {
    */
   getParamFromRequest(req: any, paramName: string, paramType: string): void;
 
+  doChain(ctx: any, next: Function, path: string | RegExp, router: any);
+
   /**
 * Defines an algorithm of how to handle error during executing controller action.
 *

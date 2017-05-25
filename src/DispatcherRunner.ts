@@ -105,7 +105,7 @@ export class DispatcherRunner {
       controller.router, 
       path, 
       action.type, 
-      async (request: any, response: any, ctx?: any, next?: Function) => await this.handle(request, response, controller, action, properties, params, ctx, next)
+      async (request: any, response: any, ctx?: any, next?: Function) => await this.handle(request, response, controller, action, properties, params, path, ctx, next)
     ]
     var usesForController = this._metadataStorage.findUsesForControllerMetadata(controller)
     var usesForAction = this._metadataStorage.findUsesForControllerMetadataAndActionMetadata(controller, action)
@@ -168,6 +168,7 @@ export class DispatcherRunner {
     actionMetadata: ActionMetadata,
     properties: ResponsePropertyMetadata[],
     paramMetadatas: ParamMetadata[],
+    path: string | RegExp,
     ctx?: any,
     next?: Function
   ) {
@@ -229,8 +230,11 @@ export class DispatcherRunner {
           args = [...params, { ctx, next }]
         }
       }
+
       result = await controllerObject[actionMetadata.method].apply(controllerObject, args);
-      await next()
+
+      await this.framework.doChain(ctx, next, path, controllerMetadata.router)
+
       this.handleSuccess(result, resultOptions);
     } catch (e) {
       this.handleError(e, resultOptions);

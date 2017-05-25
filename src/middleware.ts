@@ -13,8 +13,11 @@ async function recurExec(ctx: any, arr: Array<any>) {
 }
 
 export function compose(...middlewares: Array<any>): Function {
-  return async function (ctx: IContext, next: Function) {
+  if (!middlewares || !middlewares.length) {
+    return
+  }
+  return async function (ctx: IContext, next?: Function) {
     let res = await recurExec(ctx, middlewares)
-    await next(res);
+    next && await next(res);
   }
 }

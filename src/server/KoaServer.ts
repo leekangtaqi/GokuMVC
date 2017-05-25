@@ -7,6 +7,7 @@ import { ParamMetadata, ParamType } from '../metadata/ParamMetadata';
 import { ResultHandleOptions } from '../ResultHandleOptions';
 import { IApplication } from '../';
 import ApplicationContext, { IApplicationContext } from '../context'
+import { compose } from '../middleware'
 
 export interface IKoa extends Koa, Server, IApplication {
   ctx? :any
@@ -17,6 +18,9 @@ export class KoaServer implements Server, IApplication {
   ctx: IApplicationContext;
   routerPrefixMap = new Map();
   rootRouters = new Set();
+  actionMiddlewareMap = new Map()
+  routerMiddlewareMap = new Map()
+  routerParentMap = new Map()
   mountQueue = []
   constructor(private koa: IKoa) {
     this.ctx = this.koa.ctx = new ApplicationContext()
@@ -56,18 +60,35 @@ export class KoaServer implements Server, IApplication {
     }
 
     args.push((ctx: Context, next: Function) => executeCallback(ctx.request, ctx.response, ctx, next))
-    
+
     if (afterActionMiddlewares && afterActionMiddlewares.length) {
-      args = [...args, ...beforeActionMiddlewares]
+      // args = [...args, ...afterActionMiddlewares]
+      afterActionMiddlewares.forEach(m => {
+        let key = actionType.toUpperCase() + route
+        let middlewares = this.actionMiddlewareMap.get(key)
+        if (!middlewares || !middlewares.length) {
+          this.actionMiddlewareMap.set(key, [m])
+        } else {
+          this.actionMiddlewareMap.set(key, [...middlewares, m])
+        }
+      })
     }
 
     router[actionType].apply(router, args);
 
     if (isComplete && afterControllerMiddlewares && afterControllerMiddlewares.length) {
-      afterControllerMiddlewares.forEach(m => router.use(m))
+      afterControllerMiddlewares.forEach(m => {
+        let middlewares = this.routerMiddlewareMap.get(router)
+        if (!middlewares || !middlewares.length) {
+          this.routerMiddlewareMap.set(router, [m])
+        } else {
+          this.routerMiddlewareMap.set(router, [...middlewares, m])
+        }
+      })
     }
 
     if (root && isComplete) {
+      this.routerParentMap.set(router, root.router)
       if (root.router.opts.prefix) {
         this.routerPrefixMap.set(router, root.router.opts.prefix + root.prefix)
         this.enqueue(root.router, router, root.prefix)
@@ -83,7 +104,6 @@ export class KoaServer implements Server, IApplication {
 
   enqueue(to, from, prefix) {
     this.mountQueue.push({ to, from, prefix })
-    
   }
 
   execQueue() {
@@ -157,6 +177,35 @@ export class KoaServer implements Server, IApplication {
     return val
   }
 
+  async doChain(ctx, next, path, router) {
+    try {
+      let actionMiddlewares = this.actionMiddlewareMap.get(ctx.method + path)
+      let controllerMiddlewares = this.getControllerMiddlewaresChain(router, [])
+      let middlewares = [...actionMiddlewares || [], ...controllerMiddlewares || []]
+      if (middlewares.length) {
+        await compose(...middlewares)(ctx)  
+      }
+    } catch(e) {
+      throw e
+    }
+  }
+
+  getControllerMiddlewaresChain(router, arr): Array<any> {
+    try {
+      if (!router) {
+        return arr
+      }
+      let middlewares = this.routerMiddlewareMap.get(router)
+      if (middlewares && middlewares.length) {
+        arr = [...arr, ...middlewares]
+      }
+      let parent = this.routerParentMap.get(router)
+      return this.getControllerMiddlewaresChain(parent, arr)  
+    } catch(e) {
+      throw e
+    }
+  }
+
   handleSuccess(options: ResultHandleOptions) {
     var context: any = options.context;
     if (options.successHttpCode) {
@@ -176,9 +225,6 @@ export class KoaServer implements Server, IApplication {
   handleResult(options: ResultHandleOptions) {
     var context: any = options.context;
     var response: Response = context.response;
-    // if (options.headers) {
-    //   options.headers.forEach((header) => response.header(header.name, header.value))
-    // }
     if (options.content) {
       if (options.renderedTemplate) {
         console.error('render not supported now.')
