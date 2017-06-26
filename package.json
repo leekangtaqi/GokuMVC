@@ -1,6 +1,6 @@
 {
-  "name": "GokuMVC",
-  "version": "3.0.0",
+  "name": "goku-mvc",
+  "version": "3.0.1",
   "description": "",
   "main": "build/index.js",
   "scripts": {
