@@ -1,12 +1,12 @@
 import * as Koa from 'koa'
 import _ from './util'
 import ApplicationContext from './context'
-import AllReady from '../allready'
+import AllReady from './lib/allready'
 import * as path from 'path'
 import { Context } from 'Koa'
 import { IDomainContext } from './domain'
 import { registerActionsInExpressApp, registerActionsInKoaApp } from './Factory'
-
+import test from './test';
 
 let ar = new AllReady();
 

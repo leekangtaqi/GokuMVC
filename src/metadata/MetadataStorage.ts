@@ -6,9 +6,11 @@ import { ActionMetadata } from './ActionMetadata';
 import { MiddlewareMetadata } from './MiddlewareMetadata';
 import { UsesMetadata } from './UsesMetadata';
 import { ParamMetadata } from './ParamMetadata';
+import { ParamsMetadata } from './ParamsMetadata';
 import { ResponsePropertyMetadata } from './ResponsePropertyMetadata';
 
 class MetadataStorage {
+  private _paramsMetadata: ParamsMetadata[] = [];
   private _controllerMetadatas: ControllerMetadata[] = [];
   private _serviceMetadatas: ServiceMetadata[] = [];
   private _modelMetadatas: ModelMetadata[] = [];
@@ -60,6 +62,10 @@ class MetadataStorage {
   }
   addUseMetadata(usesMetadata: UsesMetadata) {
     this._usesMetadatas.push(usesMetadata);
+    return this;
+  }
+  addParamsMetadata(paramsMetadata: any) {
+    this._paramsMetadata.push(paramsMetadata)
     return this;
   }
   addParamMetadata(paramMetadata: ParamMetadata) {

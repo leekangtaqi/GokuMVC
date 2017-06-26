@@ -9,11 +9,15 @@ export interface IExpress extends Server, IApplication {}
 export class ExpressServer implements IExpress {
   constructor(private express: e.Express) { }
 
+  routes
+
   getRouter() {
     return e.Router();
   }
 
-  registerAction(router: any, route: string | RegExp, actionType: string, executeCallback: (req: any, res: any) => any, middlewares?: Function[]) {
+  doChain() {}
+
+  registerAction(root: any, router: any, route: string | RegExp, actionType: string, executeCallback: (req: any, res: any) => any, isNew?: boolean, isComplete?: boolean, middlewares?: Function[]) {
     middlewares && middlewares.forEach(fn => router.use(fn));
     actionType = actionType.toLowerCase();
     if (!router[actionType]) {

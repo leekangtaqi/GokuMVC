@@ -17,4 +17,9 @@ export default class OrderController {
     console.warn('find orders by id')
     return '222'
   }
+
+  @Get('/:id/order/:oid')
+  async getSSS(){
+
+  }
 }

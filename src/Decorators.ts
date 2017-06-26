@@ -100,6 +100,17 @@ export function Use(route?: RegExp | string, options?: ActionOptions): Function 
     })
   }
 }
+
+export function Params(param) {
+  return function (object: Object, methodName: string) {
+    defaultMetadataStorage.addParamsMetadata({
+      object: object,
+      method: methodName,
+      param: param
+    })
+  }
+}
+
 export function Get(route?: RegExp, options?: ActionOptions): Function;
 export function Get(route?: string, options?: ActionOptions): Function;
 export function Get(route?: RegExp | string, options?: ActionOptions): Function {

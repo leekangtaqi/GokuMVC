@@ -265,7 +265,7 @@ export class DispatcherRunner {
       this.applicationContext.services[<any>metadata.object.name] = serviceInst;
     })
   }
-
+ 
   private isActionMustReturnJson(controllerType: ControllerType, actionOption: ActionOptions): boolean {
     if (actionOption && actionOption.jsonResponse) {
       return true;

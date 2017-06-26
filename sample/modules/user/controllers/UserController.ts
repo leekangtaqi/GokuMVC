@@ -1,10 +1,12 @@
-import { Controller, Param, Get, UseBefore, UseAfter, Mount } from '../../../../src'
+import { Controller, Param, Get, UseBefore, UseAfter, Mount, Body } from '../../../../src'
 import { mw1, mw2, mw3, composedByMw1AndMw2 } from './UserMiddlewares'
 import { IUserService } from '../../interfaces'
 import OrderController from './OrderController'
 
 @Controller('/api/user')
-@UseBefore([composedByMw1AndMw2])
+@UseBefore([
+  composedByMw1AndMw2
+])
 @UseAfter([async function useAfter(ctx, next) {
   console.warn('use after **********')
   await next()
